@@ -13,7 +13,7 @@ public class CommandHandler extends ListenerAdapter {
     private static boolean valid = false;
     private static boolean isDenied = false;
 
-    private static final String deniedURL = "https://www.pvsm.ru/images/2018/06/05/avtomatizaciya-data-centrov-ili-vosstanie-mashin.jpeg";
+    private static final String deniedURLPicture = "https://i.imgur.com/7tmwIWj.jpg";
 
     // stupid joke
     private static void isDenied() {
@@ -46,7 +46,7 @@ public class CommandHandler extends ListenerAdapter {
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         if(isDenied && !event.getMember().getUser().isBot()) {
             event.getChannel().sendMessage("nope\n").queue();
-            event.getChannel().sendMessage(deniedURL).queue();
+            event.getChannel().sendMessage(deniedURLPicture).queue();
         }
         reset();
     }

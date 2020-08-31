@@ -50,10 +50,10 @@ public class Config {
         Config.requiredPrefix = requiredPrefix;
     }
 
-    public static final String token = "NzQ3ODE3NzkyMTIzNjk5Mjkw.X0UZlw.co_lg7D1-kJBaTibV_Bkj0laX38";
+    public static final String token = "";
     public static final String prefix = "!";
 
-    public static final long adminID = 583667835008712704L;
+    public static final long adminID = 0L;
     public static final String badjokeID = "";
 
     private static boolean hasLog = false;
