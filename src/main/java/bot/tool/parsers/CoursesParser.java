@@ -12,10 +12,6 @@ public class CoursesParser extends Parser {
 
     protected LinkedList<CoursesRecord> coursesList;
 
-    static {
-        defaultNumbersOfCourses = 25;
-    }
-
     private void parseTProger() {
         url = "https://tproger.ru/events/";
 
@@ -29,7 +25,7 @@ public class CoursesParser extends Parser {
             ref = ref.substring(0, ref.lastIndexOf("/"));
             String title = record.selectFirst("div[class=widget-list-item-caption]").text();
             String[] descriptions = record.selectFirst("div[class=widget-list-description]").text().split(",");
-            String date = descriptions[0], place = descriptions[1], price = descriptions[2];
+            String date = descriptions[0], place = descriptions[1].toLowerCase(), price = descriptions[2];
             CoursesRecord er = new CoursesRecord(new Record(title, price), date, place, ref);
             coursesList.add(er);
         }
@@ -44,9 +40,9 @@ public class CoursesParser extends Parser {
 
         for(Element event : eventList) {
             String title = event.selectFirst("a[class=event-name]").text();
-            String type = event.selectFirst("div[class=event-type]").text();
+            String type = event.selectFirst("div[class=event-type]").text().toLowerCase();
             String date = event.selectFirst("div[class=event-date]").text();
-            String place = event.selectFirst("div[class=event-place]").text();
+            String place = event.selectFirst("div[class=event-place]").text().toLowerCase();
             String ref = "https://all-events.ru" + event.selectFirst("a").attr("href");
 
             coursesList.add(new CoursesRecord(title, type, date, place, ref));

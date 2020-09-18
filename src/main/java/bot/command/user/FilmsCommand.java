@@ -8,6 +8,7 @@ import bot.tool.records.FilmRecord;
 import bot.util.Colors;
 import bot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -76,7 +77,6 @@ public class FilmsCommand extends ListenerAdapter implements ICommand {
             event.getChannel().sendMessage(msg.build()).queue();
             return;
         }
-        //System.out.println("FILMNAME: " + filmName);
         EmbedBuilder chooseFilmMsg = new EmbedBuilder();
         chooseFilmMsg.setTitle("Выберите ваш класс");
         chooseFilmMsg.setColor(Colors.exceptionMsg);
@@ -94,7 +94,6 @@ public class FilmsCommand extends ListenerAdapter implements ICommand {
         @Override
         public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
             if(event.getMember().getUser().equals(event.getJDA().getSelfUser())) return;
-
             long msgID = event.getMessageIdLong();
             if(event.getMessageIdLong() != filmChooseMsgID) return;
 
@@ -102,10 +101,10 @@ public class FilmsCommand extends ListenerAdapter implements ICommand {
             String reactionUnicode = event.getReactionEmote().getName();
             int maxPrice = -1;
             switch (reactionUnicode) {
-                case "\uD83D\uDEB7" -> maxPrice = 250;
-                case "\uD83D\uDEAE" -> maxPrice = 350;
-                case "\uD83D\uDCB0" -> maxPrice = Integer.MAX_VALUE;
-                default -> event.getReaction().removeReaction().queue();
+                case "\uD83D\uDEB7": maxPrice = 250;break;
+                case "\uD83D\uDEAE": maxPrice = 350;break;
+                case "\uD83D\uDCB0": maxPrice = Integer.MAX_VALUE;break;
+                default: event.getReaction().removeReaction().queue();
             }
 
             if(maxPrice == -1) return; // if add another reactions
@@ -144,7 +143,7 @@ public class FilmsCommand extends ListenerAdapter implements ICommand {
 
     @Override
     public String getDescriptions() {
-        return "Расписание сеансов в кинотеатрах на сегодня";
+        return "Расписание сеансов в кинотеатрах";
     }
 
     @Override

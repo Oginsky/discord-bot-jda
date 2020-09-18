@@ -1,7 +1,7 @@
 package bot.command;
 
 public enum CommandType {
-    SERVICE("Служебные команды"), USER("Пользовательские команды"), COMMUNICATE("Разговорные команды"), MEM("Мемы: Золотая коллекция");
+    SERVICE("Служебные команды"), USER("Пользовательские команды"), COMMUNICATE("Communicate"), MEM("Мемы");
 
     private String name;
 

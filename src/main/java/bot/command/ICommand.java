@@ -14,4 +14,6 @@ public interface ICommand {
         return "";
     }
 
+    default String getRequiredArgs() {return ""; }
+
 }

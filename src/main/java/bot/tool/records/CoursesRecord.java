@@ -34,5 +34,9 @@ public class CoursesRecord extends Record {
         return (super.toString() + "Date: " + date + "\nPlace" + place + "\nRef: " + ref + "\n");
     }
 
+    public boolean equals(CoursesRecord rec) {
+        return this == rec;
+    }
+
 
 }

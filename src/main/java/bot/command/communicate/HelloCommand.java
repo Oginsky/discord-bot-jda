@@ -48,6 +48,6 @@ public class HelloCommand extends ListenerAdapter implements ICommand {
 
     @Override
     public String getDescriptions() {
-        return "Приветствие на случайном языке";
+        return "Приветствие";
     }
 }

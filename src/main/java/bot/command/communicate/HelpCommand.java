@@ -1,9 +1,11 @@
 package bot.command.communicate;
 
+import bot.command.CommandHandler;
 import bot.command.CommandType;
 import bot.command.ICommand;
 import bot.command.RegisteredCommands;
 import bot.message.Messages;
+import bot.util.Colors;
 import bot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -25,10 +27,20 @@ public class HelpCommand extends ListenerAdapter implements ICommand {
 
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        if(event.getMember().getUser().isBot()) return;
-
         String[] args = event.getMessage().getContentRaw().split(" ");
+        if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("info")) {
+            event.getChannel().sendMessage("Используйте " + Config.prefix + getName() + " для просмотра списка команд").queue();
+            return;
+        }
+
+        if(!CommandHandler.isValid(event)) return;
+
         if(isHelpCommand(args[0])) {
+            if(args.length > 1) {
+                EmbedBuilder msg = new EmbedBuilder().setImage("https://i.imgur.com/Ntd9MyM.jpg").setColor(Colors.helpType(CommandType.USER));
+                event.getChannel().sendMessage(msg.build()).queue();
+                return;
+            }
             event.getChannel().sendTyping().queue();
             for(CommandType type: CommandType.values()) {
                 EmbedBuilder helpMsg = Messages.createHelpMsg(type, RegisteredCommands.commands, getDescriptions());
@@ -45,7 +57,7 @@ public class HelpCommand extends ListenerAdapter implements ICommand {
 
     @Override
     public String getDescriptions() {
-        return "Для более подробной информации используйте: " + Config.prefix + "help [command]";
+        return "[] - опционально\n<> - обязательно\n{...} - допустимые значения";
     }
 
     @Override

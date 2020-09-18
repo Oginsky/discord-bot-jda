@@ -49,6 +49,6 @@ public class ByeCommand extends ListenerAdapter implements ICommand {
 
     @Override
     public String getDescriptions() {
-        return "Прощание на случайном языке";
+        return "Прощание";
     }
 }

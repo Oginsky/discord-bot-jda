@@ -16,14 +16,11 @@ public class FilmsParser extends Parser {
     private String day;
 
     public FilmsParser(String filmName, String day) {
+        url = "https://tver.kinoafisha.info/movies/";
         this.filmName = filmName;
         this.day = day;
     }
 
-
-    static {
-        url = "https://tver.kinoafisha.info/movies/";
-    }
 
     private Document getPage(String siteURL) {
         String tmp = url;
@@ -67,7 +64,6 @@ public class FilmsParser extends Parser {
 
         LinkedList<FilmRecord> films = new LinkedList<>();
         Document page = getPage( (day.isEmpty()) ? url : (url + "?date=" + day) );
-        System.out.println("PAGEURL:" + ((day.isEmpty()) ? url : (url + "?date=" + day + "/")));
         if(page == null) return null;
 
         Elements movies = page.select("div[class=films_content]");
@@ -79,7 +75,6 @@ public class FilmsParser extends Parser {
             String movieURL = movie.selectFirst("a.films_iconFrame").attr("href");
             movieURL = "https://tver." + movieURL.substring(movieURL.indexOf("kino"));
             movieURL += ((day.isEmpty()) ?  urlPostfix : "?date="+day); // filtred for day
-            System.out.println("MOVIEURL:" + movieURL);
             Document movieTimePage = getPage(movieURL);
 
             FilmRecord film = parseFilm(movieTimePage);

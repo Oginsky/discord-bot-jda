@@ -15,33 +15,31 @@ public class MemesCommand extends ListenerAdapter implements ICommand {
 
         String content = event.getMessage().getContentRaw().trim();
         if(content.length() > 20) return; // optimization, if it's long message it's not a mem command;
-        if(Config.isRequiredPrefix() && !content.startsWith(Config.prefix)) return;
-        if(Config.isBotAnswer() && event.getMember().getUser().isBot()) return;
+        if(event.getMember().getUser().isBot()) return;
 
         content = content.replaceAll("[,.]", "").toLowerCase();
         String memURL = "";
-        System.out.println("Content: " + content);
-        switch(content) {
+
+        switch (content) {
             case "f":
                 event.getChannel().sendMessage("https://i.imgur.com/orpwVv4.jpg").queue();
                 event.getChannel().sendMessage("https://i.imgur.com/HyNHy4y.jpg").queue();
                 event.getChannel().sendMessage("https://i.imgur.com/LBzCOSR.jpg").queue();
                 memURL = "https://i.imgur.com/QgUbHhD.jpg";
                 break;
-            case "test obscene filter": memURL = "https://i.imgur.com/WGqPowR.jpg";break;
+
+            case "не говори так": memURL = "https://i.imgur.com/WGqPowR.jpg";break;
             case "ваше мнение": memURL = "https://i.imgur.com/nUFZcHE.jpeg";break;
             case "все нормально": memURL = "https://i.imgur.com/LDPd7r5.jpg";break;
             case "денеги на карту": memURL = "https://i.imgur.com/7TBOfSo.jpeg";break;
             case "заболел": memURL = "https://i.imgur.com/uDJoZoz.png";break;
             case "зигую": memURL = "https://i.imgur.com/GR4x49t.jpeg";break;
             case "качалка": memURL = "https://i.imgur.com/W2pGZFN.jpg";break;
-            case "классика":
-            case "classic":
-                memURL = "https://i.imgur.com/6IsFn7s.jpg";break;
-            case "критический промах": memURL = "https://i.i.imgur.com/TXwOPfH.jpeg";break;
-            case "нарезка": memURL = "https://i.i.imgur.com/bUXvnaT.png";break;
-            case "не понял": memURL = "https://i.i.imgur.com/CEzdCLX.jpeg";break;
-            case "я помогу": memURL = "https://i.imgur.com/epQtuog.jpg";break;
+            case "классика": case "classic": memURL = "https://i.imgur.com/6IsFn7s.jpg";break;
+            case "критический промах": memURL = "https://i.imgur.com/TXwOPfH.jpeg";break;
+            case "нарезка": memURL = "https://i.imgur.com/bUXvnaT.png";break;
+            case "не понял": memURL = "https://i.imgur.com/CEzdCLX.jpeg";break;
+            case "я помогу":memURL = "https://i.imgur.com/epQtuog.jpg";break;
             case "работа": memURL = "https://i.imgur.com/wgSA64P.jpg";break;
             case "скоро умру": memURL = "https://i.imgur.com/7jHbzoF.png";break;
             case "у меня проблемы": memURL = "https://i.imgur.com/wX5fvVl.jpeg";break;
@@ -51,22 +49,23 @@ public class MemesCommand extends ListenerAdapter implements ICommand {
             case "я разочарован": memURL = "https://i.imgur.com/3yp2bgc.jpg";break;
             case "я спать": memURL = "https://i.imgur.com/NsvAKMp.jpeg";break;
             case "я тут": memURL = "https://i.imgur.com/bZdlGRx.jpeg";break;
-            case "я ушел":
-                case "я пойду": memURL = "https://i.i.imgur.com/Rz8S1Qb.jpeg";break;
+            case "я ушел": case"я пойду": case"я ушёл": memURL = "https://i.imgur.com/Rz8S1Qb.jpeg";break;
+            case "хороший код": memURL = "https://i.imgur.com/4k8nRws.jpg";break;
         }
-        System.out.println("Pikcha: " + memURL);
         if(memURL.isEmpty()) return;
+
+        CommandHandler.ignoreDenied = true;
         event.getChannel().sendMessage(memURL).queue();
     }
 
     @Override
     public String getName() {
 
-        return "f, test obscene filter, ваше мнение, все нормально, " +
+        return "f, не говори так, ваше мнение, все нормально, " +
                 "денег нет, заболел, зигую, качалка, классика(classic), " +
                 "критический промах, нарезка, не понял, я помогу, работа, " +
                 "скоро умру, у меня проблемы, устал, я не понял, понял, " +
-                "я разочарован, я спать, я тут, я ушел(я пошел)";
+                "я разочарован, я спать, я тут, я ушел(я пойду), хороший код";
     }
 
     @Override

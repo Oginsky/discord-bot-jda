@@ -8,8 +8,7 @@ import java.net.URL;
 
 public abstract class Parser {
 
-    protected static String url;
-    protected static int defaultNumbersOfCourses;
+    protected String url;
     protected static final int waitingDownloadTime_ms = 10000;
 
     protected Document getPage() {
