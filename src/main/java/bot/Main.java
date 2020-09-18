@@ -72,4 +72,3 @@ public class Main {
     }
 
 }
-// C:\Users\admin\Documents\IdeaProject\VolodyaSkynet\target\VolodyaSkynet-1.0-SNAPSHOT-jar-with-dependencies.jar
